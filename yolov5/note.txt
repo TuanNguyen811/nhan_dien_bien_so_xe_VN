@@ -1,0 +1,11 @@
+- Nguồn yolov5:
+git clone https://github.com/ultralytics/yolov5
+cd yolov5
+pip install -qr requirements.txt
+
+- Câu lệnh train 
+python train.py --img 640 --batch 16 --epochs 50 –data D:\TTNT\Vietnamese_License_Plate_Recognition\dataset\training\LP_detection.yaml --weights D:\TTNT\Vietnamese_License_Plate_Recognition\model\LP_detector.pt --cache
+
+python train.py --img 32 --batch 16 --epochs 50 –data D:\TTNT\Vietnamese_License_Plate_Recognition\dataset\training\Letter_detect.yaml--weights D:\TTNT\Vietnamese_License_Plate_Recognition\model\ LP_ocr.pt --cache
+
+

@@ -1,0 +1,6 @@
+train: D:/TTNT/Vietnamese License Plate Recognition/dataset/LP_detection\LP_detection\images\train 
+val: D:/TTNT/Vietnamese License Plate Recognition/dataset/LP_detection\LP_detection\images\val
+
+# Classes
+nc:  1 # number of classes
+names: ['license_plate']  # class names

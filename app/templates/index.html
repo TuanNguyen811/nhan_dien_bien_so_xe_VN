@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>License Plate Recognition</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <script>
+        // Hàm gửi yêu cầu bật/tắt webcam
+        function toggleWebcam() {
+            fetch('/toggle_webcam', { method: 'POST' })
+                .then(response => response.json())
+                .then(data => {
+                    const status = data.webcam_active ? "ON" : "OFF";
+                    document.getElementById('webcam-status').innerText = `Webcam is ${status}`;
+                    if (!data.webcam_active) {
+                        document.getElementById('webcam-feed').src = '';
+                    } else {
+                        document.getElementById('webcam-feed').src = '/video_feed';
+                    }
+                });
+        }
+    </script>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">License Plate Recognition</h1>
+        <div class="text-center mt-4">
+            <a href="#upload-section" class="btn btn-primary">Upload Image</a>
+            <button onclick="toggleWebcam()" class="btn btn-success">Toggle Webcam</button>
+        </div>
+
+        <div id="webcam-section" class="mt-5">
+            <h3>Webcam Feed</h3>
+            <p id="webcam-status">Webcam is OFF</p>
+            <div class="text-center">
+                <img id="webcam-feed" class="img-fluid" alt="Video Feed">
+            </div>
+        </div>
+
+                <!-- Upload Image Section -->
+        <div id="upload-section" class="mt-5">
+            <h3>Upload Image</h3>
+            <form action="/upload" method="post" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label for="file" class="form-label">Choose an image:</label>
+                    <input type="file" name="file" id="file" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Process</button>
+            </form>
+            {% if result_image %}
+            <div class="mt-5">
+                <h4>Result:</h4>
+                <img src="{{ result_image }}" alt="Processed Image" class="img-fluid mt-3">
+                <h5>Detected Plates:</h5>
+                <ul>
+                    {% for plate in plates %}
+                    <li>{{ plate }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
